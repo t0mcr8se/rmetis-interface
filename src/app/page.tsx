@@ -16,6 +16,7 @@ import { WatchPendingTransactions } from '../components/WatchPendingTransactions
 import { Web3Button } from '../components/Web3Button'
 import { WriteContract } from '../components/WriteContract'
 import { WriteContractPrepared } from '../components/WriteContractPrepared'
+import { MerkleCheck } from '../components/MerkleCheck'
 
 export function Page() {
   return (
@@ -34,12 +35,16 @@ export function Page() {
         <Account />
         <br />
         <hr />
-        <h2>Balance</h2>
+        <h2>Metis Balance</h2>
         <Balance />
-        <br />
+        {/* <br />
         <hr />
         <h2>Block Number</h2>
-        <BlockNumber />
+        <BlockNumber /> */}
+        <br />
+        <hr />
+        <h2>Eligibility Check</h2>
+        <MerkleCheck />
         <br />
         <hr />
         <h2>Read Contract</h2>
