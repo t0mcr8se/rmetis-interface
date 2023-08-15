@@ -29,3 +29,5 @@ export const MERKLE_TREES = {
     1088: METIS_MERKLE_TREE,
     599: METISGOERLI_MERKLE_TREE
 }
+
+export const PRECISION = BigInt(10000)

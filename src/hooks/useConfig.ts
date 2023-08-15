@@ -20,7 +20,7 @@ export function useRMetisConfig() {
     return useMemo(() => {
         if (!chain || chain.unsupported) return
         return {
-            address: RMETIS_ADDRESSES[chain.id],
+            address: RMETIS_ADDRESSES[chain.id] as `0x${string}`,
             abi: RMETIS_ABI
         }
     }, [chain])

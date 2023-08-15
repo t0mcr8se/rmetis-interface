@@ -3,7 +3,8 @@ import { Balance } from '../components/Balance'
 import { Connected } from '../components/Connected'
 import { NetworkSwitcher } from '../components/NetworkSwitcher'
 import { Web3Button } from '../components/Web3Button'
-import { MerkleCheck } from '../components/MerkleCheck'
+import { Claim } from '../components/Claim'
+import { Redeem } from '../components/Redeem'
 
 export function Page() {
   return (
@@ -27,7 +28,11 @@ export function Page() {
         <br />
         <hr />
         <h2>Eligibility Check</h2>
-        <MerkleCheck />
+        <Claim />
+        <br />
+        <hr />
+        <h2>Redeem you rMetis for Metis</h2>
+        <Redeem />
         <br />
         <hr />
       </Connected>
