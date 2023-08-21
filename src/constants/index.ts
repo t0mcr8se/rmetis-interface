@@ -11,17 +11,17 @@ type AddressMap = {[chainId: number]: string}
 
 export const RMETIS_ADDRESSES: AddressMap = {
     1088: '0xADA3f46af457A6ce74886cd32aC1916EaD6e3366',
-    599: '0x479A23155cBe0db53d2E89373FB2178845eb9611',
+    599: '0x2E396C9F6c7781188A64c6E6EDCB07A94411a968',
 }
 
 export const VESTING_ADDRESSES: AddressMap = {
     1088: '0xa7796c1B6A33671b963Ea512eD38F0493B1F79fd',
-    599: '0x2D86cd08D59e9602DD9585078fdb16FD560D6e2E',
+    599: '0x2abc1f61b65be381Ca9D678537D6F20088D0EA0B',
 }
 
 export const MERKLE_TREES: AddressMap = {
-    1088: "https://ipfs.io/ipfs/QmcVDVhGtudUGyfY4CJNYuVUuDFodo67Lf1fK9fj88EZNW",
-    599: "https://ipfs.io/ipfs/QmcVDVhGtudUGyfY4CJNYuVUuDFodo67Lf1fK9fj88EZNW"
+    1088: "https://ipfs.io/ipfs/QmdGo9MfbapaJYpNeCfKHZHeNGTNJnJ1Ry8mVZVqXTskQb",
+    599: "https://ipfs.io/ipfs/QmdGo9MfbapaJYpNeCfKHZHeNGTNJnJ1Ry8mVZVqXTskQb"
 }
 
 export const PRECISION = BigInt(10000)

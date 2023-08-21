@@ -92,10 +92,6 @@ export function Redeem() {
   }, [
     isRedeemIdle,
     isApproveIdle,
-    isAllowanceRefetching,
-    isBalanceRefetching,
-    allowanceRefetch,
-    balanceRefetch,
   ]);
 
   const onInputChange = useCallback(
