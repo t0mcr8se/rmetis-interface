@@ -12,7 +12,7 @@ export function useRMetisBalance(account?: string) {
     functionName: "balanceOf",
     args: [account],
   });
-  return { balance: balance as bigint, refetch, isRefetching };
+  return { balance: balance as bigint || BigInt(0), refetch, isRefetching };
 }
 
 export function useRatio() {
@@ -21,7 +21,7 @@ export function useRatio() {
     ...vestingConfig,
     functionName: "priceRatio",
   });
-  return { ratio, refetch } as any;
+  return { ratio: ratio as bigint || BigInt(0), refetch } as any;
 }
 
 export function useAidropDeadline() {

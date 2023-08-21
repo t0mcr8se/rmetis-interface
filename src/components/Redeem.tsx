@@ -109,7 +109,7 @@ export function Redeem() {
 
   return (
     <div>
-      {balance && <p>rMetis balance: {formatEther(balance)} rMetis</p>}
+      <p>rMetis balance: {formatEther(balance)} rMetis</p>
       {ratio && (
         <p>
           1 rMetis = {Number(ratio) / Number(PRECISION)} Metis{" "}

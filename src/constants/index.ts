@@ -19,15 +19,9 @@ export const VESTING_ADDRESSES: AddressMap = {
     599: '0xefa11d94D5EDEF0a284C7FAA7ACecEd62E7d0FBE',
 }
 
-export const MERKLE_TREE_PATH = "../../snapshot.json" // TODO: insert ipfs hash here
-
-// export {default as MERKLE_TREE} from '../snapshot.json'
-import METIS_MERKLE_TREE from '../snapshots/snapshot-metis.json'
-import METISGOERLI_MERKLE_TREE from '../snapshots/snapshot-metisgoerli.json'
-
-export const MERKLE_TREES = {
-    1088: METIS_MERKLE_TREE,
-    599: METISGOERLI_MERKLE_TREE
+export const MERKLE_TREES: AddressMap = {
+    1088: "https://ipfs.io/ipfs/QmcVDVhGtudUGyfY4CJNYuVUuDFodo67Lf1fK9fj88EZNW",
+    599: "https://ipfs.io/ipfs/QmcVDVhGtudUGyfY4CJNYuVUuDFodo67Lf1fK9fj88EZNW"
 }
 
 export const PRECISION = BigInt(10000)
