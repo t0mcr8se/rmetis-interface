@@ -89,10 +89,17 @@ export function Redeem() {
   useEffect(() => {
     if (!isAllowanceRefetching) allowanceRefetch(); // Refetch everytime the write function status changes
     if (!isBalanceRefetching) balanceRefetch();
-  }, [isRedeemIdle, isApproveIdle]);
+  }, [
+    isRedeemIdle,
+    isApproveIdle,
+    isAllowanceRefetching,
+    isBalanceRefetching,
+    allowanceRefetch,
+    balanceRefetch,
+  ]);
 
   const onInputChange = useCallback(
-    (e) => {
+    (e: any) => {
       setInputAmount(e.target.value);
       try {
         const parsed = parseEther(e.target.value as `${number}`);
