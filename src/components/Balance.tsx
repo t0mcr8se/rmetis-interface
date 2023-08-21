@@ -21,7 +21,7 @@ export function AccountBalance() {
 
   return (
     <div>
-      {data?.formatted}
+      {data?.formatted} METIS{' '}
       <button onClick={() => refetch()}>refetch</button>
     </div>
   )
