@@ -7,27 +7,13 @@ import {
   useRMetisAllowance,
   useRMetisBalance,
   useRatio,
+  useVestingProgress,
   useVestingSchedule,
 } from "../hooks/useToken";
 import { PRECISION } from "../constants";
 import { useRMetisConfig, useVestingConfig } from "../hooks/useConfig";
+import { ProgressBar } from "./ProgressBar";
 
-export function AsciiProgressBar({
-  percent,
-  width,
-}: {
-  percent: number;
-  width: number;
-}) {
-  const progress = Math.round((width * percent) / 100);
-  const empty = width - progress;
-  return (
-    <div>
-      <span style={{ color: "green" }}>{"".padEnd(progress, "|")}</span>
-      <span style={{ color: "red" }}>{"".padEnd(empty, "|")}</span>
-    </div>
-  );
-}
 
 export function Redeem() {
   const { address } = useAccount();
@@ -39,28 +25,19 @@ export function Redeem() {
   const { ratio, refetch: ratioRefetch } = useRatio();
   const rMetisConfig = useRMetisConfig();
   const vestingConfig = useVestingConfig();
-  const {
-    allowance,
-    refetch: allowanceRefetch,
-    isRefetching: isAllowanceRefetching,
-  } = useRMetisAllowance(vestingConfig.address, address);
   // we need to input the amount of xMetis to redeem, then have a button to approve it and then finally redeem button
   const [inputAmount, setInputAmount] = useState("0");
   const [inputError, setInputError] = useState<string | null>(null);
   const [parsedInput, setParsedInput] = useState<bigint>(BigInt(0));
   const { startDate, endDate } = useVestingSchedule();
 
-  const vestingProgress = useMemo(() => {
-    if (!startDate || !endDate) return 0;
-    const now = BigInt(Math.floor(Date.now() / 1000));
-    if (now < startDate) return 0;
-    if (now > endDate) return 100;
-    return (Number(now - startDate) / Number(endDate - startDate)) * 100;
-  }, [startDate, endDate]);
+  const {
+    refetch: allowanceRefetch,
+    isRefetching: isAllowanceRefetching,
+    needApprove,
+  } = useRMetisAllowance(parsedInput, vestingConfig.address, address);
 
-  const needApprove = useMemo(() => {
-    return allowance < parsedInput;
-  }, [allowance, parsedInput]);
+  const vestingProgress = useVestingProgress();
 
   const {
     write: approve,
@@ -89,10 +66,7 @@ export function Redeem() {
   useEffect(() => {
     if (!isAllowanceRefetching) allowanceRefetch(); // Refetch everytime the write function status changes
     if (!isBalanceRefetching) balanceRefetch();
-  }, [
-    isRedeemIdle,
-    isApproveIdle,
-  ]);
+  }, [isRedeemIdle, isApproveIdle]);
 
   const onInputChange = useCallback(
     (e: any) => {
@@ -100,7 +74,6 @@ export function Redeem() {
       try {
         const parsed = parseEther(e.target.value as `${number}`);
         setParsedInput(parsed);
-        // setInputAmount(formatEther(parsed));
         if (parsed > balance) setInputError("Insufficient balance");
         else setInputError(null);
       } catch (e) {
@@ -109,83 +82,158 @@ export function Redeem() {
     },
     [balance]
   );
-
   return (
-    <div>
-      <p>rMetis balance: {formatEther(balance)} rMetis</p>
-      {ratio && (
-        <p>
-          1 rMetis = {Number(ratio) / Number(PRECISION)} Metis{" "}
-          <button onClick={ratioRefetch}>refresh</button>
+    <>
+      <div className="absolute w-[660px] h-[526px] top-[1864px] left-[280px] bg-[#303030] rounded-[40px] overflow-hidden">
+        <div className="absolute w-[529px] h-[60px] top-[204px] left-[70px] bg-black rounded-[44px]">
+          <div className="absolute w-[313px] h-[34px] top-[11px] left-[19px] [font-family:'Inter-Regular',_Helvetica] font-normal text-white text-[28px] tracking-[0] leading-[normal]">
+            {formatEther(balance)} rMetis
+          </div>
+        </div>
+        <p className="absolute w-[529px] h-[42px] top-[51px] left-[70px] [font-family:'Raleway-Medium',_Helvetica] font-medium text-white text-[36px] tracking-[0] leading-[normal]">
+          Redeem your rMetis for Metis
         </p>
-      )}
-      {ratio && balance && (
-        <p>You can redeem {formatEther((ratio * balance) / PRECISION)} now</p>
-      )}
-      <p>
-        <b>Vesting Schedule: </b>
-      </p>
-      <p>
-        Start {new Date(Number(startDate) * 1000).toLocaleString()}{" "}
-        <AsciiProgressBar percent={vestingProgress} width={100} /> End{" "}
-        {new Date(Number(endDate) * 1000).toLocaleString()}
-      </p>
-      <p>
-        <b>Redeem:</b>
-      </p>
-      Amount:{" "}
-      <input
-        name="value"
-        placeholder="value (rMetis)"
-        value={inputAmount}
-        onChange={onInputChange}
-      />
-      <button
-        onClick={() => {
-          setInputAmount(formatEther(balance));
-          setParsedInput(balance);
-        }}
-      >
-        max
-      </button>{" "}
-      {inputError ??
-        `You will get ${formatEther((ratio * parsedInput) / PRECISION)} Metis`}
-      <br />
-      <br />
-      {needApprove ? (
-        <>
-          <button
-            disabled={
-              isAllowanceRefetching ||
-              !isApproveIdle ||
-              inputError !== null ||
-              isBalanceRefetching
-            }
-            onClick={() =>
-              approve({ args: [vestingConfig.address, parsedInput] })
-            }
-          >
-            Approve
-          </button>
-          {isApproveError && <p>{approveError?.message}</p>}
-        </>
-      ) : (
-        <button
-          disabled={
-            inputError !== null ||
-            !isRedeemIdle ||
-            isBalanceRefetching ||
-            isAllowanceRefetching ||
-            parsedInput === BigInt(0)
-          }
-          onClick={() => redeem({ args: [parsedInput] })}
-        >
+        <div className="absolute w-[313px] h-[42px] top-[380px] left-[70px] [font-family:'Inter-Regular',_Helvetica] font-normal text-white text-[35px] tracking-[0] leading-[normal]">
+          {formatEther((ratio * balance) / PRECISION)} Metis
+        </div>
+        <div className="absolute w-[313px] top-[157px] left-[70px] [font-family:'Inter-Regular',_Helvetica] font-normal text-[#00dacc] text-[22px] tracking-[0] leading-[normal]">
+          rMetis balance
+        </div>
+        <div className="absolute w-[313px] top-[348px] left-[70px] [font-family:'Inter-Regular',_Helvetica] font-normal text-[#00dacc] text-[22px] tracking-[0] leading-[normal]">
+          You can redeem
+        </div>
+        <p className="absolute w-[313px] top-[272px] left-[70px] [font-family:'Inter-Regular',_Helvetica] font-normal text-[#6c6c6c] text-[20px] tracking-[0] leading-[normal]">
+          <span className="[font-family:'Inter-Regular',_Helvetica] font-normal text-[#6c6c6c] text-[20px] tracking-[0]">
+            1 rMetis = {Number(ratio) / Number(PRECISION)}{" "}
+          </span>
+          <span className="[font-family:'Inter-Bold',_Helvetica] font-bold">
+            Metis
+          </span>
+        </p>
+      </div>
+      <div className="absolute w-[660px] h-[526px] top-[1864px] left-[980px] bg-[#303030] rounded-[40px] overflow-hidden">
+        <div className="absolute w-[529px] h-[42px] top-[51px] left-[70px] [font-family:'Raleway-Medium',_Helvetica] font-medium text-white text-[36px] tracking-[0] leading-[normal]">
+          Vesting Schedule
+        </div>
+        <div className="absolute w-[137px] top-[368px] left-[70px] [font-family:'Inter-Regular',_Helvetica] font-normal text-white text-[20px] tracking-[0] leading-[normal]">
+          {new Date(Number(startDate) * 1000).toLocaleDateString()}
+        </div>
+        <div className="left-[70px] absolute w-[137px] top-[402px] [font-family:'Inter-Regular',_Helvetica] font-normal text-[#6c6c6c] text-[20px] tracking-[0] leading-[normal]">
+          {new Date(Number(startDate) * 1000).toLocaleTimeString()}
+        </div>
+        <div className="absolute w-[137px] top-[326px] left-[70px] [font-family:'Inter-Bold',_Helvetica] font-bold text-white text-[32px] tracking-[0] leading-[normal]">
+          Start
+        </div>
+        <div className="absolute w-[137px] top-[368px] left-[453px] [font-family:'Inter-Regular',_Helvetica] font-normal text-white text-[20px] text-right tracking-[0] leading-[normal]">
+          {new Date(Number(endDate) * 1000).toLocaleDateString()}
+        </div>
+        <div className="left-[453px] text-right absolute w-[137px] top-[402px] [font-family:'Inter-Regular',_Helvetica] font-normal text-[#6c6c6c] text-[20px] tracking-[0] leading-[normal]">
+          {" "}
+          {new Date(Number(endDate) * 1000).toLocaleTimeString()}
+        </div>
+        <div className="absolute w-[137px] top-[326px] left-[453px] [font-family:'Inter-Bold',_Helvetica] font-bold text-white text-[32px] text-right tracking-[0] leading-[normal]">
+          End
+        </div>
+        <ProgressBar percent={vestingProgress} />
+        <img
+          className="left-[70px] absolute w-[2px] h-[20px] top-[289px]"
+          alt="Vector"
+          src="vector-3.svg"
+        />
+        <img
+          className="left-[329px] absolute w-[2px] h-[20px] top-[289px]"
+          alt="Vector"
+          src="vector-5.svg"
+        />
+        <img
+          className="left-[588px] absolute w-[2px] h-[20px] top-[289px]"
+          alt="Vector"
+          src="vector-4.svg"
+        />
+      </div>
+      <div className="absolute w-[1360px] h-[353px] top-[2424px] left-[280px] bg-[#303030] rounded-[30px] overflow-hidden shadow-[var(--sombra-cuadros)]">
+        <div className="absolute w-[529px] top-[130px] left-[66px] [font-family:'Inter-Regular',_Helvetica] font-normal text-[#00dacc] text-[22px] tracking-[0] leading-[normal]">
+          Amount
+        </div>
+        {inputError ?? (
+          <p className="absolute w-[529px] top-[247px] left-[66px] [font-family:'Inter-Regular',_Helvetica] font-normal text-white text-[22px] tracking-[0] leading-[normal]">
+            <span className="[font-family:'Inter-Regular',_Helvetica] font-normal text-white text-[22px] tracking-[0]">
+              You will get {formatEther((ratio * parsedInput) / PRECISION)}{" "}
+            </span>
+            <span className="[font-family:'Inter-Bold',_Helvetica] font-bold">
+              Metis
+            </span>
+          </p>
+        )}
+        {isRedeemSuccess && (
+          <div className="absolute w-[529px] top-[156px] left-[771px] [font-family:'Inter-Regular',_Helvetica] font-normal text-neutral-300 text-[15px] tracking-[0] leading-[normal]">
+            Redeem was successful
+            {redeemData?.hash}
+          </div>
+        )}
+        {inputError !== null && <p>Input error: {inputError}</p>}
+        {isRedeemError && <p>{redeemError?.message}</p>}
+        {isRedeemSuccess && <p>Redeem was successful {redeemData?.hash}</p>}
+
+        <div className="w-[529px] h-[42px] top-[67px] left-[66px] text-white text-[36px] tracking-[0] absolute [font-family:'Raleway-Medium',_Helvetica] font-medium leading-[normal]">
           Redeem
-        </button>
-      )}
-      {inputError !== null && <p>Input error: {inputError}</p>}
-      {isRedeemError && <p>{redeemError?.message}</p>}
-      {isRedeemSuccess && <p>Redeem was successful {redeemData?.hash}</p>}
-    </div>
+        </div>
+        <div className="absolute w-[529px] h-[60px] top-[170px] left-[66px] bg-black rounded-[50px] overflow-hidden border border-solid">
+          <input
+            name="value"
+            placeholder="value (rMetis)"
+            value={inputAmount}
+            onChange={onInputChange}
+            className="absolute w-[320px] h-[34px] top-[12px] left-[31px] bg-black overflow-hidden [font-family:'Inter-Regular',_Helvetica] font-normal text-white text-[28px] tracking-[0] leading-[normal]"
+          />
+          <div className="absolute w-[99px] h-[50px] top-[5px] left-[423px] bg-[#00dacc] rounded-[50px]">
+            <button
+              onClick={() => {
+                setInputAmount(formatEther(balance));
+                setParsedInput(balance);
+              }}
+              className="absolute w-[239px] h-[60px] top-[-6px] left-[-69px] [font-family:'Raleway-Medium',_Helvetica] font-medium text-black text-[20px] text-center tracking-[0.20px] leading-[normal]"
+            >
+              MAX
+            </button>
+          </div>
+        </div>
+        <div className="absolute w-[240px] h-[60px] top-[68px] left-[771px] bg-white rounded-[50px]">
+          {needApprove ? (
+            <>
+              <button
+                disabled={
+                  isAllowanceRefetching ||
+                  !isApproveIdle ||
+                  inputError !== null ||
+                  isBalanceRefetching
+                }
+                onClick={() =>
+                  approve({ args: [vestingConfig.address, parsedInput] })
+                }
+                className="w-[239px] h-[60px] -top-px left-px text-black text-[20px] text-center tracking-[0.20px] absolute [font-family:'Raleway-Medium',_Helvetica] font-medium leading-[normal]"
+              >
+                Approve
+              </button>
+              {isApproveError && <p>{approveError?.message}</p>}
+            </>
+          ) : (
+            <button
+              disabled={
+                inputError !== null ||
+                !isRedeemIdle ||
+                isBalanceRefetching ||
+                isAllowanceRefetching ||
+                parsedInput === BigInt(0)
+              }
+              onClick={() => redeem({ args: [parsedInput] })}
+              className="w-[239px] h-[60px] -top-px left-px text-black text-[20px] text-center tracking-[0.20px] absolute [font-family:'Raleway-Medium',_Helvetica] font-medium leading-[normal]"
+            >
+              Redeem
+            </button>
+          )}
+        </div>
+      </div>
+    </>
   );
 }

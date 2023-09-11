@@ -1,5 +1,6 @@
 import { useContractRead } from "wagmi";
 import { useRMetisConfig, useVestingConfig } from "./useConfig";
+import { useMemo } from "react";
 
 export function useRMetisBalance(account?: string) {
   const rMetisConfig = useRMetisConfig();
@@ -33,7 +34,7 @@ export function useAidropDeadline() {
   return deadline as any;
 }
 
-export function useRMetisAllowance(spender?: string, owner?: string) {
+export function useRMetisAllowance(requiredAmount: bigint, spender?: string, owner?: string) {
   const {
     data: allowance,
     refetch,
@@ -43,7 +44,7 @@ export function useRMetisAllowance(spender?: string, owner?: string) {
     functionName: "allowance",
     args: [owner, spender],
   });
-  return { allowance: allowance as bigint, refetch, isRefetching };
+  return { allowance: allowance as bigint, refetch, isRefetching, needApprove: (allowance as bigint) < requiredAmount };
 }
 
 export function useVestingSchedule() {
@@ -63,4 +64,15 @@ export function useVestingSchedule() {
       endRefetch();
     },
   };
+}
+
+export function useVestingProgress() {
+  const { startDate, endDate } = useVestingSchedule();
+  return useMemo(() => {
+    if (!startDate || !endDate) return 0;
+    const now = BigInt(Math.floor(Date.now() / 1000));
+    if (now < startDate) return 0;
+    if (now > endDate) return 100;
+    return (Number(now - startDate) / Number(endDate - startDate)) * 100;
+  }, [startDate, endDate]);
 }

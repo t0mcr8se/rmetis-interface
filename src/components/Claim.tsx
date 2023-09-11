@@ -39,35 +39,67 @@ export function Claim() {
 
   return (
     <>
-      <div>
-        {deadlinePassed && !isClaimed ? (
-          <p>The airdrop has ended</p>
-        ) : (
-          <>
-            {isClaimed
-              ? `You have already claimed your rMetis tokens`
-              : address
-              ? loading
-                ? `Loading Merkle Tree`
-                : !found
-                ? `You are not eligible for this airdrop`
-                : `You are eligible to claim ${formatEther(
-                    amount as bigint
-                  )} rMetis`
-              : `Connect wallet to check eligibility`}
-            {!isClaimed && address && found && (
-              <>
-                <br />
-                <button disabled={isError} onClick={click}>
-                  {isError ? error?.message : `Claim`}
-                </button>
-                <p>
-                  <b>Claim your tokens before {deadline}</b>
-                </p>
-              </>
-            )}
-          </>
-        )}
+      <div className="absolute w-[659px] h-[193px] top-[1637px] left-[980px] bg-[url(../../static/img/frame-32.png)] bg-[100%_100%]">
+        <p className="absolute w-[475px] h-[72px] top-[60px] left-[184px] [font-family:'Inter-Regular',_Helvetica] font-normal text-transparent text-[30px] tracking-[0] leading-[normal]">
+          {deadlinePassed && !isClaimed ? (
+            <span className="text-white">The airdrop has ended</span>
+          ) : (
+            <>
+              {isClaimed ? (
+                <span className="text-white">
+                  You have already claimed your rMetis tokens
+                </span>
+              ) : address ? (
+                loading ? (
+                  <span className="text-white">Loading Merkle tree</span>
+                ) : !found ? (
+                  <span className="text-white">
+                    You are not eligible for this airdrop
+                  </span>
+                ) : (
+                  <>
+                    <span className="text-white">
+                      Claim your tokens before{" "}
+                    </span>
+                    <span className="text-[#00dacc]">{deadline}</span>
+                  </>
+                )
+              ) : (
+                <span className="text-white">
+                  Connect wallet to check eligibility
+                </span>
+              )}
+            </>
+          )}
+        </p>
+      </div>
+      {!isClaimed && found && !deadlinePassed && (
+        <>
+          <div className="absolute w-[659px] h-[193px] top-[1637px] left-[280px] bg-[#161616] rounded-[40px] overflow-hidden">
+            <p className="absolute w-[500px] h-[135px] top-[60px] left-[138px] [font-family:'Inter-Regular',_Helvetica] font-normal text-transparent text-[30px] tracking-[0] leading-[normal]">
+              <span className="text-white">You are eligible to claim </span>
+              <span className="text-[#00dacc]">5.0625</span>
+              <span className="text-white"> of rMetis tokens</span>
+            </p>
+            <img
+              className="absolute w-[70px] h-[80px] top-[57px] left-[33px]"
+              alt="Group"
+              src="../../static/img/Group 11.svg"
+            />
+          </div>
+          <div className="absolute w-[240px] h-[60px] top-[1527px] left-[980px] bg-[#00dacc] rounded-[50px]">
+            <button
+              onClick={click}
+              disabled={isError}
+              className="absolute w-[239px] h-[60px] -top-px left-px [font-family:'Raleway-Medium',_Helvetica] font-medium text-black text-[20px] text-center tracking-[0.20px] leading-[normal]"
+            >
+              Claim
+            </button>
+          </div>
+        </>
+      )}
+      <div className="absolute w-[660px] h-[94px] top-[1509px] left-[280px] [font-family:'Raleway-Medium',_Helvetica] font-medium text-white text-[80px] tracking-[0] leading-[normal]">
+        Eligibility Check
       </div>
     </>
   );

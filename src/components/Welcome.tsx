@@ -1,0 +1,27 @@
+export default function Welcome() {
+  return (
+    <>
+      <div className="absolute w-[1362px] h-[42px] top-[54px] left-[280px]">
+        <img
+          className="absolute w-[197px] h-[42px] top-0 left-0"
+          alt="Metis ligt"
+          src="../../static/img/metis-light-background.svg"
+        />
+      </div>
+      <div className="absolute w-[1360px] h-[480px] top-[151px] left-[280px] rounded-[40px] overflow-hidden bg-[url(../../static/img/soft-with-iridescent-color-contemporary-abstract-background-1.png)] bg-cover bg-[50%_50%]">
+        <div className="relative h-[480px] bg-[url(../../static/img/image-2023-08-28-11-57-41-1.png)] bg-cover bg-[50%_50%]">
+          <div className="absolute w-[240px] h-[60px] top-[92px] left-[101px] rounded-[50px]">
+            <div className="w-[437px] h-[60px] top-[-31px] left-px [font-family:'Raleway-Medium',_Helvetica] font-medium text-[36px] tracking-[0.36px] absolute text-white leading-[normal]">
+              Welcome
+            </div>
+          </div>
+          <div className="absolute top-[129px] left-[101px] [font-family:'Raleway-Bold',_Helvetica] font-bold text-white text-[100px] tracking-[0] leading-[100px]">
+            Metis
+            <br />
+            Redemption
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
