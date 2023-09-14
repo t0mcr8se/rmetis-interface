@@ -73,12 +73,12 @@ export function Claim() {
           )}
         </p>
       </div>
-      {!isClaimed && found && !deadlinePassed && (
+      {!isClaimed && found && !deadlinePassed && amount && (
         <>
           <div className="absolute w-[659px] h-[193px] top-[1637px] left-[280px] bg-[#161616] rounded-[40px] overflow-hidden">
             <p className="absolute w-[500px] h-[135px] top-[60px] left-[138px] [font-family:'Inter-Regular',_Helvetica] font-normal text-transparent text-[30px] tracking-[0] leading-[normal]">
               <span className="text-white">You are eligible to claim </span>
-              <span className="text-[#00dacc]">5.0625</span>
+              <span className="text-[#00dacc]">{formatEther(amount)}</span>
               <span className="text-white"> of rMetis tokens</span>
             </p>
             <img
