@@ -1,5 +1,4 @@
 export function ProgressBar({ percent }: { percent: number }) {
-  percent = 100;
   return (
     <>
       {percent <= 10 ? (
