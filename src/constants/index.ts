@@ -10,18 +10,18 @@ export {default as VESTING_ABI} from '../abi/vesting-vault.json'
 type AddressMap = {[chainId: number]: string}
 
 export const RMETIS_ADDRESSES: AddressMap = {
-    1088: '0xaeC5fDc91AE13F0D096B7FE1a98A59A6B7B8807A',
-    599: '0x2E396C9F6c7781188A64c6E6EDCB07A94411a968',
+    1088: '0x18ebC943Ba08e5FF31832F53C3B011db74Bc1911',
+    599: '0x91Bfc6358A58Df7Fc1A0Ca9D1B1B3B7f08B80986',
 }
 
 export const VESTING_ADDRESSES: AddressMap = {
-    1088: '0xF39497E24b02504E0381B4bDE863743992B7E59B',
-    599: '0x2abc1f61b65be381Ca9D678537D6F20088D0EA0B',
+    1088: '0x4D4F5FAf217143eC1047d944d2e4928e3dCCC9FB',
+    599: '0x4381F671Db28109cAcd31907F3EF5594350A027d',
 }
 
 export const MERKLE_TREES: AddressMap = {
-    1088: "https://ipfs.io/ipfs/Qma9u45w92yFK8LPeCbWBNL1J1QkNYTtgMtUGBotWK6wYc",
-    599: "https://ipfs.io/ipfs/QmdGo9MfbapaJYpNeCfKHZHeNGTNJnJ1Ry8mVZVqXTskQb"
+    1088: "https://ipfs.io/ipfs/QmPGsz4M4CMGZxg3jsF6icmC2cHbY3nRqFNp6H8HSCAPd4",
+    599: "https://ipfs.io/ipfs/QmPGsz4M4CMGZxg3jsF6icmC2cHbY3nRqFNp6H8HSCAPd4"
 }
 
 export const PRECISION = BigInt(10000)
