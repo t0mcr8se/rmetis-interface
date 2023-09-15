@@ -11,7 +11,7 @@ export function NetworkSwitcher() {
   const { data: ensName } = useEnsName({ address })
 
   return (
-    <div className="absolute w-[660px] h-[371px] top-[680px] left-[986px] w-[660px] h-[371px] bg-[#161616] rounded-[40px] overflow-hidden">
+    <div className="absolute w-[660px] h-[371px] top-[780px] left-[986px] w-[660px] h-[371px] bg-[#161616] rounded-[40px] overflow-hidden">
       <div className="absolute w-[529px] h-[26px] top-[49px] left-[51px] [font-family:'Raleway-Medium',_Helvetica] font-medium text-[#00dacc] text-[22px] tracking-[0] leading-[normal]">
         Network
       </div>

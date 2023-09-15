@@ -40,7 +40,7 @@ export function Claim() {
 
   return (
     <>
-      <div className="absolute w-[659px] h-[193px] top-[1637px] left-[980px] bg-[url(../../static/img/frame-32.png)] bg-[100%_100%]">
+      <div className="absolute w-[659px] h-[193px] top-[1737px] left-[980px] bg-[url(../../static/img/frame-32.png)] bg-[100%_100%]">
         <p className="absolute w-[475px] h-[72px] top-[60px] left-[184px] [font-family:'Inter-Regular',_Helvetica] font-normal text-transparent text-[30px] tracking-[0] leading-[normal]">
           {deadlinePassed && !isClaimed ? (
             <span className="text-white">The airdrop has ended</span>
@@ -76,7 +76,7 @@ export function Claim() {
       </div>
       {!isClaimed && found && !deadlinePassed && amount && (
         <>
-          <div className="absolute w-[659px] h-[193px] top-[1637px] left-[280px] bg-[#161616] rounded-[40px] overflow-hidden">
+          <div className="absolute w-[659px] h-[193px] top-[1737px] left-[280px] bg-[#161616] rounded-[40px] overflow-hidden">
             <p className="absolute w-[500px] h-[135px] top-[60px] left-[138px] [font-family:'Inter-Regular',_Helvetica] font-normal text-transparent text-[30px] tracking-[0] leading-[normal]">
               <span className="text-white">You are eligible to claim </span>
               <span className="text-[#00dacc]">{formatEther(amount)}</span>
@@ -85,10 +85,10 @@ export function Claim() {
             <img
               className="absolute w-[70px] h-[80px] top-[57px] left-[33px]"
               alt="Group"
-              src="../../static/img/Group 11.svg"
+              src="../../static/img/group-11.svg"
             />
           </div>
-          <div className="absolute w-[240px] h-[60px] top-[1527px] left-[980px] bg-[#00dacc] rounded-[50px]">
+          <div className="absolute w-[240px] h-[60px] top-[1627px] left-[980px] bg-[#00dacc] rounded-[50px]">
             <button
               onClick={click}
               disabled={isError}
@@ -99,7 +99,7 @@ export function Claim() {
           </div>
         </>
       )}
-      <div className="absolute w-[660px] h-[94px] top-[1509px] left-[280px] [font-family:'Raleway-Medium',_Helvetica] font-medium text-white text-[80px] tracking-[0] leading-[normal]">
+      <div className="absolute w-[660px] h-[94px] top-[1609px] left-[280px] [font-family:'Raleway-Medium',_Helvetica] font-medium text-white text-[80px] tracking-[0] leading-[normal]">
         Eligibility Check
       </div>
     </>

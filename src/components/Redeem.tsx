@@ -84,7 +84,7 @@ export function Redeem() {
   );
   return (
     <>
-      <div className="absolute w-[660px] h-[526px] top-[1864px] left-[280px] bg-[#303030] rounded-[40px] overflow-hidden">
+      <div className="absolute w-[660px] h-[526px] top-[1964px] left-[280px] bg-[#303030] rounded-[40px] overflow-hidden">
         <div className="absolute w-[529px] h-[60px] top-[204px] left-[70px] bg-black rounded-[44px]">
           <div className="absolute w-[313px] h-[34px] top-[11px] left-[19px] [font-family:'Inter-Regular',_Helvetica] font-normal text-white text-[28px] tracking-[0] leading-[normal]">
             {formatEther(balance)} rMetis
@@ -111,7 +111,7 @@ export function Redeem() {
           </span>
         </p>
       </div>
-      <div className="absolute w-[660px] h-[526px] top-[1864px] left-[980px] bg-[#303030] rounded-[40px] overflow-hidden">
+      <div className="absolute w-[660px] h-[526px] top-[1964px] left-[980px] bg-[#303030] rounded-[40px] overflow-hidden">
         <div className="absolute w-[529px] h-[42px] top-[51px] left-[70px] [font-family:'Raleway-Medium',_Helvetica] font-medium text-white text-[36px] tracking-[0] leading-[normal]">
           Vesting Schedule
         </div>
@@ -151,7 +151,7 @@ export function Redeem() {
           src="vector-4.svg"
         />
       </div>
-      <div className="absolute w-[1360px] h-[353px] top-[2424px] left-[280px] bg-[#303030] rounded-[30px] overflow-hidden shadow-[var(--sombra-cuadros)]">
+      <div className="absolute w-[1360px] h-[353px] top-[2524px] left-[280px] bg-[#303030] rounded-[30px] overflow-hidden shadow-[var(--sombra-cuadros)]">
         <div className="absolute w-[529px] top-[130px] left-[66px] [font-family:'Inter-Regular',_Helvetica] font-normal text-[#00dacc] text-[22px] tracking-[0] leading-[normal]">
           Amount
         </div>

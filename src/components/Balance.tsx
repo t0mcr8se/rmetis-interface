@@ -18,7 +18,7 @@ export function AccountBalance() {
   });
 
   return (
-    <div className="absolute w-[1366px] h-[326px] top-[1085px] left-[280px] bg-[#303030] rounded-[40px] overflow-hidden">
+    <div className="absolute w-[1366px] h-[326px] top-[1185px] left-[280px] bg-[#303030] rounded-[40px] overflow-hidden">
       <p className="absolute w-[752px] h-[61px] top-[101px] left-[56px] [font-family:'Inter-Regular',_Helvetica] font-normal text-white text-[50px] tracking-[0] leading-[normal]">
         <span className="[font-family:'Inter-Regular',_Helvetica] font-normal text-white text-[40px] tracking-[0]">
           {data?.formatted}{" "}
