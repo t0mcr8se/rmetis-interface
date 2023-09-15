@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { useAccount, useContractRead, useContractWrite } from "wagmi";
+import { useAccount, useBlockNumber, useContractRead, useContractWrite } from "wagmi";
 import { useMerkleProof } from "../hooks/useMerkleTree";
 import { formatEther } from "viem";
 import { useVestingConfig } from "../hooks/useConfig";
@@ -25,7 +25,10 @@ export function Claim() {
     ...vestingContractConfig,
     functionName: "claimed",
     args: [address],
+    watch: true,
   });
+  const {data} = useBlockNumber({watch: true})
+  console.log({data})
 
   const { write, error, isError } = useContractWrite({
     ...vestingContractConfig,

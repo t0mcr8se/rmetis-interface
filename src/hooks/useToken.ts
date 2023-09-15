@@ -12,6 +12,7 @@ export function useRMetisBalance(account?: string) {
     ...rMetisConfig,
     functionName: "balanceOf",
     args: [account],
+    watch: true
   });
   return { balance: balance as bigint || BigInt(0), refetch, isRefetching };
 }
@@ -21,6 +22,7 @@ export function useRatio() {
   const { data: ratio, refetch } = useContractRead({
     ...vestingConfig,
     functionName: "priceRatio",
+    watch: true
   });
   return { ratio: ratio as bigint || BigInt(0), refetch } as any;
 }
@@ -43,6 +45,7 @@ export function useRMetisAllowance(requiredAmount: bigint, spender?: string, own
     ...useRMetisConfig(),
     functionName: "allowance",
     args: [owner, spender],
+    watch: true,
   });
   return { allowance: allowance as bigint, refetch, isRefetching, needApprove: (allowance as bigint) < requiredAmount };
 }
