@@ -677,6 +677,9 @@ video {
 .top-\[289px\] {
   top: 289px;
 }
+.top-\[300px\] {
+  top: 300px;
+}
 .top-\[326px\] {
   top: 326px;
 }
@@ -996,9 +999,6 @@ video {
 .text-right {
   text-align: right;
 }
-.text-\[100px\] {
-  font-size: 100px;
-}
 .text-\[15px\] {
   font-size: 15px;
 }
@@ -1028,6 +1028,9 @@ video {
 }
 .text-\[50px\] {
   font-size: 50px;
+}
+.text-\[70px\] {
+  font-size: 70px;
 }
 .text-\[80px\] {
   font-size: 80px;
@@ -1068,9 +1071,17 @@ video {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
+.text-blue-200 {
+  --tw-text-opacity: 1;
+  color: rgb(191 219 254 / var(--tw-text-opacity));
+}
 .text-neutral-300 {
   --tw-text-opacity: 1;
   color: rgb(212 212 212 / var(--tw-text-opacity));
+}
+.text-red-400 {
+  --tw-text-opacity: 1;
+  color: rgb(248 113 113 / var(--tw-text-opacity));
 }
 .text-transparent {
   color: transparent;
@@ -1078,6 +1089,12 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.underline {
+  text-decoration-line: underline;
+}
+.overline {
+  text-decoration-line: overline;
 }
 .shadow-\[var\(--sombra-cuadros\)\] {
   --tw-shadow-color: var(--sombra-cuadros);

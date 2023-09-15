@@ -15,10 +15,13 @@ export default function Welcome() {
               Welcome
             </div>
           </div>
-          <div className="absolute top-[129px] left-[101px] [font-family:'Raleway-Bold',_Helvetica] font-bold text-white text-[100px] tracking-[0] leading-[100px]">
+          <div className="absolute top-[129px] left-[101px] [font-family:'Raleway-Bold',_Helvetica] font-bold text-white text-[70px] tracking-[0] leading-[100px]">
             Metis
             <br />
             Redemption
+          </div>
+          <div className="absolute top-[300px] left-[101px] [font-family:'Raleway-Bold',_Helvetica] font-bold text-red-400 text-[28px] tracking-[0] leading-[100px]">
+          PHISHING WARNING: Please make sure you're visiting https://redemption.metis.io <br />- check the URL carefully. Read the <a className="text-blue-200 overline underline text-bold" href="https://metisdao.medium.com/step-by-step-instructions-on-how-to-redeem-your-metis-assets-lost-from-polynetwork-hack-ee57fac03502">TUTORIAL HERE</a> carefully before proceeding
           </div>
         </div>
       </div>

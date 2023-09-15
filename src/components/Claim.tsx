@@ -27,8 +27,6 @@ export function Claim() {
     args: [address],
     watch: true,
   });
-  const {data} = useBlockNumber({watch: true})
-  console.log({data})
 
   const { write, error, isError } = useContractWrite({
     ...vestingContractConfig,
