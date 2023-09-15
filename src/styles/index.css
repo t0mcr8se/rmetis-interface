@@ -611,9 +611,6 @@ video {
 .top-\[11px\] {
   top: 11px;
 }
-.top-\[129px\] {
-  top: 129px;
-}
 .top-\[12px\] {
   top: 12px;
 }
@@ -674,11 +671,11 @@ video {
 .top-\[272px\] {
   top: 272px;
 }
+.top-\[280px\] {
+  top: 280px;
+}
 .top-\[289px\] {
   top: 289px;
-}
-.top-\[300px\] {
-  top: 300px;
 }
 .top-\[326px\] {
   top: 326px;
@@ -697,6 +694,9 @@ video {
 }
 .top-\[49px\] {
   top: 49px;
+}
+.top-\[50px\] {
+  top: 50px;
 }
 .top-\[51px\] {
   top: 51px;
