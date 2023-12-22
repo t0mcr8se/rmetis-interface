@@ -20,8 +20,8 @@ export const VESTING_ADDRESSES: AddressMap = {
 }
 
 export const MERKLE_TREES: AddressMap = {
-    1088: "https://ipfs.io/ipfs/QmPGsz4M4CMGZxg3jsF6icmC2cHbY3nRqFNp6H8HSCAPd4",
-    599: "https://ipfs.io/ipfs/QmPGsz4M4CMGZxg3jsF6icmC2cHbY3nRqFNp6H8HSCAPd4"
+    1088: "https://raw.githubusercontent.com/t0mcr8se/rmetis-merkle-tree/main/merkle-bsc-0xe552Fb52a4F19e44ef5A967632DBc320B0820639-11170743-29591664-no-contracts.json",
+    599: "https://raw.githubusercontent.com/t0mcr8se/rmetis-merkle-tree/main/merkle-bsc-0xe552Fb52a4F19e44ef5A967632DBc320B0820639-11170743-29591664-no-contracts.json"
 }
 
 export const PRECISION = BigInt(10000)
