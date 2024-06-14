@@ -24,7 +24,7 @@ export default function Welcome() {
               Please make sure you are visiting{" "}
             </span>
             <span className="[font-family:'Inter-Bold',Helvetica] font-bold">
-              https://redemption.metis.io
+              https://lp-redemption.metis.io
             </span>
             <span className="[font-family:'Inter-Regular',Helvetica] font-normal text-white text-[24px] tracking-[0] leading-[34px]">
               {" "}
