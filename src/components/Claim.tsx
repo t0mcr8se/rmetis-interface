@@ -8,11 +8,11 @@ import { useVestingConfig } from "../hooks/useConfig";
 import { useCallback } from "react";
 import { useAidropDeadline } from "../hooks/useToken";
 
-export function Claim() {
+export function Claim({index}: {index: number}) {
   const { address } = useAccount();
-  const { found, loading, leafIndex, amount, proof } = useMerkleProof(address);
-  const vestingContractConfig = useVestingConfig();
-  const claimDeadline = useAidropDeadline();
+  const { found, loading, leafIndex, amount, proof } = useMerkleProof(index, address);
+  const vestingContractConfig = useVestingConfig(index);
+  const claimDeadline = useAidropDeadline(index);
   const deadline = useMemo(() => {
     return new Date(Number(claimDeadline) * 1000).toLocaleString();
   }, [claimDeadline]);

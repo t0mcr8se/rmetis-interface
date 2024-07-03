@@ -2,8 +2,8 @@ import { useContractRead } from "wagmi";
 import { useRMetisConfig, useVestingConfig } from "./useConfig";
 import { useMemo } from "react";
 
-export function useRMetisBalance(account?: string) {
-  const rMetisConfig = useRMetisConfig();
+export function useRMetisBalance(index=0, account?: string) {
+  const rMetisConfig = useRMetisConfig(index);
   const {
     data: balance,
     refetch,
@@ -17,8 +17,8 @@ export function useRMetisBalance(account?: string) {
   return { balance: balance as bigint || BigInt(0), refetch, isRefetching };
 }
 
-export function useRatio() {
-  const vestingConfig = useVestingConfig();
+export function useRatio(index = 0) {
+  const vestingConfig = useVestingConfig(index);
   const { data: ratio, refetch } = useContractRead({
     ...vestingConfig,
     functionName: "priceRatio",
@@ -27,8 +27,8 @@ export function useRatio() {
   return { ratio: ratio as bigint || BigInt(0), refetch } as any;
 }
 
-export function useAidropDeadline() {
-  const vestingConfig = useVestingConfig();
+export function useAidropDeadline(index = 0) {
+  const vestingConfig = useVestingConfig(index);
   const { data: deadline } = useContractRead({
     ...vestingConfig,
     functionName: "claimDeadline",
@@ -36,13 +36,13 @@ export function useAidropDeadline() {
   return deadline as any;
 }
 
-export function useRMetisAllowance(requiredAmount: bigint, spender?: string, owner?: string) {
+export function useRMetisAllowance(index = 0, requiredAmount: bigint, spender?: string, owner?: string) {
   const {
     data: allowance,
     refetch,
     isRefetching,
   } = useContractRead({
-    ...useRMetisConfig(),
+    ...useRMetisConfig(index),
     functionName: "allowance",
     args: [owner, spender],
     watch: true,
@@ -50,13 +50,13 @@ export function useRMetisAllowance(requiredAmount: bigint, spender?: string, own
   return { allowance: allowance as bigint, refetch, isRefetching, needApprove: (allowance as bigint) < requiredAmount };
 }
 
-export function useVestingSchedule() {
+export function useVestingSchedule(index = 0) {
   const { data: startDate, refetch: startRefetch } = useContractRead({
-    ...useVestingConfig(),
+    ...useVestingConfig(index),
     functionName: "startDate",
   });
   const { data: endDate, refetch: endRefetch } = useContractRead({
-    ...useVestingConfig(),
+    ...useVestingConfig(index),
     functionName: "endDate",
   });
   return {
@@ -69,8 +69,8 @@ export function useVestingSchedule() {
   };
 }
 
-export function useVestingProgress() {
-  const { startDate, endDate } = useVestingSchedule();
+export function useVestingProgress(index = 0) {
+  const { startDate, endDate } = useVestingSchedule(index);
   return useMemo(() => {
     if (!startDate || !endDate) return 0;
     const now = BigInt(Math.floor(Date.now() / 1000));

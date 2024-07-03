@@ -4,9 +4,9 @@ import axios from "axios";
 import { StandardMerkleTree } from "@openzeppelin/merkle-tree";
 import { useNetwork } from "wagmi";
 
-function useMerkleJson() {
+function useMerkleJson(index = 0) {
   const { chain } = useNetwork()
-  const url = useMemo(() => !chain || chain?.unsupported ? undefined : MERKLE_TREES[chain.id] as any, [chain])
+  const url = useMemo(() => !chain || chain?.unsupported ? undefined : MERKLE_TREES[chain.id][index] as any, [chain, index])
   const [data, setData] = useState<undefined | any>(undefined)
   useEffect(() => {
     if (!url) return
@@ -19,17 +19,17 @@ function useMerkleJson() {
   return useMemo(() => data ? JSON.parse(data) : undefined, [data])
 }
 
-export function useMerkleTree() {
+export function useMerkleTree(index = 0) {
   const { chain } = useNetwork();
-  const tree = useMerkleJson()
+  const tree = useMerkleJson(index)
   return useMemo(() => {
     if (!chain || chain.unsupported || !tree ) return;
     return StandardMerkleTree.load(tree as any);
   }, [chain, tree]);
 }
 
-export function useMerkleProof(address?: string) {
-  const tree = useMerkleTree();
+export function useMerkleProof(index = 0, address?: string) {
+  const tree = useMerkleTree(index);
   return useMemo(() => {
     if (!tree || !address) return { loading: true };
 

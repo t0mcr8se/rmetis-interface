@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useMemo } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useAccount, useContractWrite } from "wagmi";
 import { formatEther, parseEther } from "viem";
 import {
@@ -15,29 +15,29 @@ import { useRMetisConfig, useVestingConfig } from "../hooks/useConfig";
 import { ProgressBar } from "./ProgressBar";
 
 
-export function Redeem() {
+export function Redeem({index}: {index: number}) {
   const { address } = useAccount();
   const {
     balance,
     isRefetching: isBalanceRefetching,
     refetch: balanceRefetch,
-  } = useRMetisBalance(address);
-  const { ratio, refetch: ratioRefetch } = useRatio();
-  const rMetisConfig = useRMetisConfig();
-  const vestingConfig = useVestingConfig();
+  } = useRMetisBalance(index, address);
+  const { ratio, refetch: ratioRefetch } = useRatio(index);
+  const rMetisConfig = useRMetisConfig(index);
+  const vestingConfig = useVestingConfig(index);
   // we need to input the amount of xMetis to redeem, then have a button to approve it and then finally redeem button
   const [inputAmount, setInputAmount] = useState("0");
   const [inputError, setInputError] = useState<string | null>(null);
   const [parsedInput, setParsedInput] = useState<bigint>(BigInt(0));
-  const { startDate, endDate } = useVestingSchedule();
+  const { startDate, endDate } = useVestingSchedule(index);
 
   const {
     refetch: allowanceRefetch,
     isRefetching: isAllowanceRefetching,
     needApprove,
-  } = useRMetisAllowance(parsedInput, vestingConfig.address, address);
+  } = useRMetisAllowance(index, parsedInput, vestingConfig.address, address);
 
-  const vestingProgress = useVestingProgress();
+  const vestingProgress = useVestingProgress(index);
 
   const {
     write: approve,
@@ -66,7 +66,7 @@ export function Redeem() {
   useEffect(() => {
     if (!isAllowanceRefetching) allowanceRefetch(); // Refetch everytime the write function status changes
     if (!isBalanceRefetching) balanceRefetch();
-  }, [isRedeemIdle, isApproveIdle]);
+  }, [isRedeemIdle, isApproveIdle, isAllowanceRefetching, allowanceRefetch, isBalanceRefetching, balanceRefetch]);
 
   const onInputChange = useCallback(
     (e: any) => {
