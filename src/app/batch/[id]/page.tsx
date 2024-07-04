@@ -14,10 +14,9 @@ import Welcome from "../../../components/Welcome";
 export default function Page() {
   const {id} = useParams<{id : string;}>()
 
-
   const index = useMemo(() => {
-    if(id === '2') return 1
-    if(id === '1') return 0
+    if(id === '1') return 1
+    if(id === '0') return 0
     return undefined
   }, [id])
 
@@ -29,7 +28,7 @@ export default function Page() {
     <>
       <div className="bg-[#0e0e0e] flex flex-row justify-center w-full">
         <div className="bg-[#0e0e0e] w-[1920px] h-[3665px] relative">
-          <Welcome />
+          <Welcome index={index}/>
           <NetworkSwitcher />
           <Connected>
             <Account />

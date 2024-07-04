@@ -1,4 +1,6 @@
-export default function Welcome() {
+import Link from "next/link";
+
+export default function Welcome({index} : {index?: number}) {
   return (
     <>
       <div className="absolute w-[1362px] h-[42px] top-[54px] left-[280px]">
@@ -8,12 +10,22 @@ export default function Welcome() {
           src="../../static/img/metis-light-background.svg"
         />
       </div>
+      <text style={{color: "red"}}>BRO TIP: SWITCH BETWEEN BATCH NO.0 AND BATCH NO.1 BY CLICKING THE GREEN BUTTON TO CHECK IF YOUR ELIGIBLE FOR ANY OF THE REDEMPTIONS THANK YOU!</text>
       <div className="absolute w-[1360px] h-[300px] top-[151px] left-[280px] rounded-[40px] overflow-hidden bg-[url(../../static/img/soft-with-iridescent-color-contemporary-abstract-background-1.png)] bg-cover bg-[50%_50%]">
         <div className="relative h-[480px] bg-[url(../../static/img/image-2023-08-28-11-57-41-1.png)] bg-cover bg-[50%_50%]">
           <div className="absolute top-[50px] left-[101px] [font-family:'Raleway-Bold',_Helvetica] font-bold text-white text-[70px] tracking-[0] leading-[100px]">
             Metis
             <br />
             Redemption
+          </div>
+          <div className="absolute top-[50px] left-[551px] text-[30px] leading-[100px]">
+          <Link href={'/batch/0'} aria-disabled={index == 0} className={`absolute w-[239px] h-[60px] -top-px -left-px [font-family:'Raleway-Medium',Helvetica] rounded-[40px] font-medium text-black text-[20px] text-center tracking-[0.20px] leading-[normal]`} style={{backgroundColor: index == 0 ? "grey" : "#50C878"}}>
+            Batch No. 0
+          </Link>
+            <br />
+          <Link href={'/batch/1'} className="absolute w-[239px] h-[60px] -left-px [font-family:'Raleway-Medium',Helvetica] rounded-[40px] font-medium text-black text-[20px] text-center tracking-[0.20px] leading-[normal]" style={{backgroundColor: index == 1 ? "grey" : "#50C878"}}>
+            Batch No. 1
+          </Link>
           </div>
         </div>
       </div>

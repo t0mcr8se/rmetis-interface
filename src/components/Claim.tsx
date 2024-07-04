@@ -1,16 +1,17 @@
 "use client";
 
 import { useMemo } from "react";
-import { useAccount, useBlockNumber, useContractRead, useContractWrite } from "wagmi";
+import { useAccount, useContractRead, useContractWrite } from "wagmi";
 import { useMerkleProof } from "../hooks/useMerkleTree";
 import { formatEther } from "viem";
 import { useVestingConfig } from "../hooks/useConfig";
 import { useCallback } from "react";
 import { useAidropDeadline } from "../hooks/useToken";
+import Link from "next/link";
 
-export function Claim({index}: {index: number}) {
+export function Claim({index}: {index?: number}) {
   const { address } = useAccount();
-  const { found, loading, leafIndex, amount, proof } = useMerkleProof(index, address);
+  const { found, loading, amount, proof } = useMerkleProof(index, address);
   const vestingContractConfig = useVestingConfig(index);
   const claimDeadline = useAidropDeadline(index);
   const deadline = useMemo(() => {
@@ -28,7 +29,7 @@ export function Claim({index}: {index: number}) {
     watch: true,
   });
 
-  const { write, error, isError } = useContractWrite({
+  const { write, isError } = useContractWrite({
     ...vestingContractConfig,
     functionName: "claim",
     args: [amount, proof],
@@ -55,7 +56,7 @@ export function Claim({index}: {index: number}) {
                   <span className="text-white">Loading Merkle tree</span>
                 ) : !found ? (
                   <span className="text-white">
-                    You are not eligible for this airdrop
+                    You are not eligible for this airdrop, try checking <Link href={`/batch/${(index ?? 0 + 1) % 2}`} >Batch No. {(index ?? 0 + 1) % 2}</Link>
                   </span>
                 ) : (
                   <>

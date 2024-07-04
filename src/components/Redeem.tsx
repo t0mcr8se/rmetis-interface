@@ -15,7 +15,7 @@ import { useRMetisConfig, useVestingConfig } from "../hooks/useConfig";
 import { ProgressBar } from "./ProgressBar";
 
 
-export function Redeem({index}: {index: number}) {
+export function Redeem({index}: {index?: number}) {
   const { address } = useAccount();
   const {
     balance,
@@ -66,7 +66,7 @@ export function Redeem({index}: {index: number}) {
   useEffect(() => {
     if (!isAllowanceRefetching) allowanceRefetch(); // Refetch everytime the write function status changes
     if (!isBalanceRefetching) balanceRefetch();
-  }, [isRedeemIdle, isApproveIdle, isAllowanceRefetching, allowanceRefetch, isBalanceRefetching, balanceRefetch]);
+  }, [isRedeemIdle, isApproveIdle]);
 
   const onInputChange = useCallback(
     (e: any) => {
